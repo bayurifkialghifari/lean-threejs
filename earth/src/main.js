@@ -32,7 +32,7 @@ scene.add(ambientLight);
 const hemi = new THREE.HemisphereLight(0x99ddff, 0x220022, 0.25);
 scene.add(hemi);
 
-const { earthGroup, earthMesh } = createEarth(textureLoader);
+const { earthGroup, earthMesh, cloudMesh } = createEarth(textureLoader);
 const moon = createMoon(textureLoader, 4);
 
 earthGroup.add(moon.moonGroup);
@@ -47,6 +47,7 @@ function animateScene() {
   updateMoonOrbit(moon, 0.02);
 
   earthMesh.rotation.y += 0.005;
+  cloudMesh.rotation.y += 0.007;
   moon.moonMesh.rotation.y += 0.001;
 
   renderer.render(scene, camera);

@@ -4,11 +4,12 @@ export function createEarth(textureLoader) {
   const earthGroup = new THREE.Group();
   earthGroup.rotation.z = THREE.MathUtils.degToRad(23.5);
 
-  const earthGeometry = new THREE.IcosahedronGeometry(1, 10);
-  const earthMaterial = new THREE.MeshStandardMaterial({
+  const earthGeometry = new THREE.IcosahedronGeometry(1, 12);
+  const earthMaterial = new THREE.MeshPhongMaterial({
     map: textureLoader.load("earth.jpg"),
-    roughness: 1,
-    metalness: 0,
+    specularMap: textureLoader.load("earthspec.jpg"),
+    bumpMap: textureLoader.load("earthbump.jpg"),
+    bumpScale: 0.05,
   });
 
   const earthMesh = new THREE.Mesh(earthGeometry, earthMaterial);
@@ -26,5 +27,17 @@ export function createEarth(textureLoader) {
   earthDirectionalLight.shadow.camera.bottom = -5;
   earthGroup.add(earthDirectionalLight);
 
-  return { earthGroup, earthMesh };
+  // Add cloud layer
+  const cloudMaterial = new THREE.MeshStandardMaterial({
+    map: textureLoader.load("cloud.jpg"),
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending,
+    alphaMap: textureLoader.load("cloud2.jpg"),
+  });
+  const cloudMesh = new THREE.Mesh(earthGeometry, cloudMaterial);
+  cloudMesh.scale.setScalar(1.003);
+  earthGroup.add(cloudMesh);
+
+  return { earthGroup, earthMesh, cloudMesh };
 }
