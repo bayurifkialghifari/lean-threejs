@@ -21,6 +21,7 @@ const far = 10; // Anything farther than 10 units will not be rendered
 
 const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 camera.position.z = 2; // Move the camera back so we can see the scene
+camera.position.y = 1.2; // Move the camera up so we can see the scene from aboves
 
 // Controls to orbit around the scene with the mouse
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -55,6 +56,11 @@ function animateScene() {
   requestAnimationFrame(animateScene); // Request the next frame
   // mesh.rotation.x += 0.005; // Rotate the mesh around the x-axis
   mesh.rotation.y += 0.005; // Rotate the mesh around the y-axis
+  // Update scale bigger and smaller dynamically
+  mesh.scale.x = 1 + 0.5 * Math.sin(Date.now() * 0.001); // Scale the mesh in the x-axis based on a sine wave
+  mesh.scale.y = 1 + 0.5 * Math.sin(Date.now() * 0.001); // Scale the mesh in the y-axis based on a sine wave
+  mesh.scale.z = 1 + 0.5 * Math.sin(Date.now() * 0.001); // Scale the mesh in the z-axis based on a sine wave
+
   renderer.render(scene, camera); // Render the scene from the perspective of the camera
   controls.update(); // Update the controls for damping
 }
