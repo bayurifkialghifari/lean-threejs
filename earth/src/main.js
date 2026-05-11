@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from "three/examples/jsm/Addons.js";
 import { createEarth } from "./objects/earth.js";
 import { createMoon, updateMoonOrbit } from "./objects/moon.js";
 import { createStartField } from "./objects/startField.js";
